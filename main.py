@@ -83,3 +83,24 @@ if not converged:
     print(f" MAX ITERÁCIÓ ELÉRVE ({max_iter}). Nem konvergált teljesen.")
     print(f" Végső súlyok: w1={w1:.4f}, w2={w2:.4f}, w3={w3:.4f}, b={b:.4f}")
 
+# =============== TESZTELÉS ===============
+print(f"\n{'='*70}")
+print(" TESZTELÉS A TANÍTÁS UTÁN")
+print(f"{'='*70}")
+print(f"{'x1':<3} {'x2':<3} {'x3':<3} → {'net':>9} {'y':<3} {'d':<3} {'Státusz'}")
+print("-" * 70)
+
+correct_count = 0
+for x1, x2, x3, d in data:
+    net = w1 * x1 + w2 * x2 + w3 * x3 + b
+    y = step_function(net)
+    status = "Correct" if y == d else "Incorrect"
+    color = "\033[92m" if y == d else "\033[91m"
+    print(f"{x1:<3} {x2:<3} {x3:<3} → {net:9.4f} {y:<3} {d:<3} {color}{status}\033[0m")
+    if y == d:
+        correct_count += 1
+
+print(f"\nPontosság: {correct_count}/8  ({correct_count/8*100:.1f}%)")
+if correct_count == 8:
+    print(" TELJES SIKER! A perceptron tökéletesen megtanulta az AND függvényt.")
+print(f"{'='*70}")
