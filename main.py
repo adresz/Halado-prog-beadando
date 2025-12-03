@@ -22,3 +22,22 @@ data = [
     [1, 0, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 1, 1, 1]
 ]
 
+# =============== BEKÉRÉS ===============
+print("=== 3 változós AND Perceptron tanítása ===")
+print("Add meg a kezdeti paramétereket:\n")
+
+try:
+    w1 = float(input("Kezdeti w1 súly (pl. 0.7): "))
+    w2 = float(input("Kezdeti w2 súly (pl. 0.2): "))
+    w3 = float(input("Kezdeti w3 súly (pl. 0.8): "))
+    b  = float(input("Kezdeti bias (b) (pl. 0.10): "))
+    lr = float(input("Tanulási ráta (pl. 0.2): "))
+    max_iter = int(input("Maximum iterációk száma (pl. 50): "))
+except ValueError:
+    print("Hibás bemenet! Alapértelmezett értékek használata.")
+    w1, w2, w3, b = 0.7, 0.2, 0.8, 0.10
+    lr = 0.2
+    max_iter = 50
+
+print(f"\nKezdeti értékek: w1={w1}, w2={w2}, w3={w3}, b={b}, η={lr}, max_iter={max_iter}\n")
+
