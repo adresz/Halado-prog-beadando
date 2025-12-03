@@ -41,3 +41,45 @@ except ValueError:
 
 print(f"\nKezdeti értékek: w1={w1}, w2={w2}, w3={w3}, b={b}, η={lr}, max_iter={max_iter}\n")
 
+# =============== TANÍTÁS ===============
+print_header()
+
+iteration = 1
+converged = False
+
+while iteration <= max_iter and not converged:
+    converged = True
+    misclassified = 0
+
+    for x1, x2, x3, d in data:
+        net = w1 * x1 + w2 * x2 + w3 * x3 + b
+        y = step_function(net)
+        e = d - y
+        correct = (e == 0)
+
+        if not correct:
+            converged = False
+            misclassified += 1
+            # Súlyfrissítés
+            w1 += lr * e * x1
+            w2 += lr * e * x2
+            w3 += lr * e * x3
+            b  += lr * e
+
+        print_row(iteration, x1, x2, x3, d, net, y, e, w1, w2, w3, b, correct)
+
+    if converged:
+        print(f"\n{'='*110}")
+        print(" KONVERGENCIA! Minden minta helyesen osztályozva.")
+        print(f" Végső súlyok: w1={w1:.4f}, w2={w2:.4f}, w3={w3:.4f}, b={b:.4f}")
+        break
+
+    iteration += 1
+    if iteration <= max_iter and not converged:
+        print(f"\n--- {iteration}. iteráció indul... ---\n")
+
+if not converged:
+    print(f"\n{'='*110}")
+    print(f" MAX ITERÁCIÓ ELÉRVE ({max_iter}). Nem konvergált teljesen.")
+    print(f" Végső súlyok: w1={w1:.4f}, w2={w2:.4f}, w3={w3:.4f}, b={b:.4f}")
+
